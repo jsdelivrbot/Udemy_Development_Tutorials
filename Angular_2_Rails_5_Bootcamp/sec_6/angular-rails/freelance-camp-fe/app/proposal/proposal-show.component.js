@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var ProposalShowComponent = (function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var ProposalShowComponent = /** @class */ (function () {
     function ProposalShowComponent(route) {
         this.route = route;
     }
@@ -26,8 +27,8 @@ var ProposalShowComponent = (function () {
             selector: 'proposal-show',
             templateUrl: 'proposal-show.component.html',
             styleUrls: ['proposal-show.component.css']
-        }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute])
+        }),
+        __metadata("design:paramtypes", [router_1.ActivatedRoute])
     ], ProposalShowComponent);
     return ProposalShowComponent;
 }());

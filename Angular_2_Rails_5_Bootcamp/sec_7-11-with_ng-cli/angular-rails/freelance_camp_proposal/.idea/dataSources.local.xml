@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails freelance_camp_proposal: test" uuid="9ca1556b-b7b2-4a99-ab36-afc1c23820de">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>rh3014</user-name>
+    </data-source>
+    <data-source name="Rails freelance_camp_proposal: production" uuid="03ace658-72f1-4f0e-8286-9922a4720fe3">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <user-name>freelance_camp_proposal</user-name>
+    </data-source>
+    <data-source name="Rails freelance_camp_proposal: development" uuid="a0519f38-c527-4de0-8864-a0dea0116882">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <first-sync>true</first-sync>
+    </data-source>
+  </component>
+</project>
