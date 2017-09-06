@@ -23,5 +23,5 @@ minim veniam, quis nostrud exercitation',
     file_url: 'https://drive.google.com/open?id=0B72pYSkZQA2DbVVnSURBMUhwTzg',
     image_url: 'https://www.w3schools.com/css/img_lights.jpg'
   )
-  
+
 end

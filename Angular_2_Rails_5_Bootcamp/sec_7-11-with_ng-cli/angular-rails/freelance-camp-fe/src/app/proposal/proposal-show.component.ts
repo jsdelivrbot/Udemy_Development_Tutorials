@@ -10,7 +10,7 @@ import { ProposalService } from './proposal.service';
   moduleId: module.id,
   selector: 'proposal-show',
   templateUrl: 'proposal-show.component.html',
-  // styleUrls: ['proposal-show.component.css'],
+  styleUrls: ['proposal-show.component.css'],
   providers: [ ProposalService ]
 })
 export class ProposalShowComponent implements OnInit {
