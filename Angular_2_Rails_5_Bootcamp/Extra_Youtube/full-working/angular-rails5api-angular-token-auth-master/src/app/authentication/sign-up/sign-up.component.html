@@ -1,0 +1,63 @@
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui image header">
+      <div class="content">
+        Create an account
+      </div>
+    </h2>
+    <form [formGroup]="signupForm" (ngSubmit)="submit(signupForm.value)" class="ui large form">
+      <app-error-label [control]="signupForm" [submitted]="submitted"></app-error-label>
+      <div class="ui stacked secondary  segment">
+        <div class="field">
+          <app-input-field [attribute]="'Email'"
+             [type]="'email'"
+             [placeholder]="'Email Address'"
+             [icon]="'user icon'"
+             [control]="signupForm.controls['email']"
+             [submitted]="submitted">
+          </app-input-field>
+        </div>
+        <div class="field">
+          <app-input-field [attribute]="'Password'"
+             [type]="'password'"
+             [placeholder]="'Password'"
+             [icon]="'lock icon'"
+             [control]="signupForm.controls['password']"
+             [submitted]="submitted">
+          </app-input-field>
+        </div>
+        <button class="ui positive basic button" type="submit">Submit</button>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>
+
+    <div class="ui message">
+      Have an account? <a routerLink="/login">Login</a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- <h2>Sign Up</h2>
+<form [formGroup]="signupForm" (ngSubmit)="submit(signupForm.value)">
+  <app-error-label [control]="signupForm" [submitted]="submitted"></app-error-label>
+  <app-input-field [attribute]="'email'"
+               [type]="'email'"
+               [control]="signupForm.controls['email']"
+               [submitted]="submitted">
+  </app-input-field>
+
+  <app-input-field [attribute]="'password'"
+               [type]="'password'"
+               [control]="signupForm.controls['password']"
+               [submitted]="submitted">
+  </app-input-field>
+  <button type="submit">Submit</button>  
+</form> -->

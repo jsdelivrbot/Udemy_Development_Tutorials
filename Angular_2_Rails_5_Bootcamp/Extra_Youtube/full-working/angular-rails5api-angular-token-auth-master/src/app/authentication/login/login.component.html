@@ -1,0 +1,59 @@
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui image header">
+      <div class="content">
+        Log-in to your account
+      </div>
+    </h2>
+    <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)" class="ui large form">
+      <app-error-label [control]="loginForm" [submitted]="submitted"></app-error-label>
+      <div class="ui stacked secondary  segment">
+        <div class="field">
+          <app-input-field [attribute]="'Email'"
+             [type]="'email'"
+             [placeholder]="'Email Address'"
+             [icon]="'user icon'"
+             [control]="loginForm.controls['email']"
+             [submitted]="submitted">
+          </app-input-field>
+        </div>
+        <div class="field">
+          <app-input-field [attribute]="'Password'"
+             [type]="'password'"
+             [placeholder]="'Password'"
+             [icon]="'lock icon'"
+             [control]="loginForm.controls['password']"
+             [submitted]="submitted">
+          </app-input-field>
+        </div>
+        <button class="ui positive basic button" type="submit">Submit</button>
+      </div>
+
+      <div class="ui error message"></div>
+
+    </form>
+
+    <div class="ui message">
+      New to us? <a routerLink="/signup">Register</a>
+    </div>
+  </div>
+</div>
+
+<!-- <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
+  <app-error-label [control]="loginForm" [submitted]="submitted"></app-error-label>
+  <app-input-field [attribute]="'email'"
+               [type]="'email'"
+               [control]="loginForm.controls['email']"
+               [submitted]="submitted">
+  </app-input-field>
+
+  <app-input-field [attribute]="'password'"
+               [type]="'password'"
+               [control]="loginForm.controls['password']"
+               [submitted]="submitted">
+  </app-input-field>
+  <button type="submit">Submit</button>
+</form>
+<button (click)="signInWithGithub()">Sign In with Github</button> -->
+
+

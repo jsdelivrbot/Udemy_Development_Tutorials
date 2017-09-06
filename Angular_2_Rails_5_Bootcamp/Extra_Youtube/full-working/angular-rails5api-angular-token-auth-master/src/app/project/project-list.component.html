@@ -1,0 +1,34 @@
+<div class="ui four stackable cards">
+  <div class="card" *ngFor='let project of projects'>
+    <a (click)="goToShow(project)">
+      <div class="card-block">
+        <h3 class="card-title">{{ project.title }}</h3>
+        <p>
+          <small>Last Updated: {{ project.updated_at | date:'medium' }}</small>
+        </p>
+        <p class="card-text">{{ project.description }}</p>
+        <a class="btn btn-primary">View Project</a>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- <div class="project-list" *ngFor='let project of projects'>
+  <a (click)="goToShow(project)">
+    <div class="">
+      <div class="">
+        {{ project.title }}
+      </div>
+       <small><strong>Project ID:</strong> {{ project.id }}</small>
+      <p>
+        <small>Last Updated: {{ project.updated_at | date:'medium' }}</small>
+      </p>
+      <div>
+        <p> 
+          {{ project.description }}
+        </p>
+      </div>
+    </div>
+  </a>
+</div>
+ -->

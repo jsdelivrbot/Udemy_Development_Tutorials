@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PostListComponent } from './post/post-list.component';
 import { PostService } from './post/post.service';
 import { HomepageComponent } from './homepage/homepage.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { HomepageComponent } from './homepage/homepage.component';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
     HttpModule
   ],
