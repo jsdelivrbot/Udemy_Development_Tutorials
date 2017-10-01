@@ -330,12 +330,12 @@ return (
 );
 ```
 >The javascript variable wrapped the curly bracket is just being referenced instead of being modified like `{this.state.term} = '4'`.
-
+>
 >What has happened here is that whenever we change the input, this function: `(event) => this.setState({ term: event.target.value })` runs because it's the event handler. We set the state with the new value of input. As long as we update the state, this causes the our component to automatically re-render and push all the updated information from the render method into the DOM. 
 
-##Ajax Request
+## Ajax Request
 
-###Youtube API Search
+### Youtube API Search
 
 First, import the Youtube Api Search functionality from the youtube package:
 
@@ -396,7 +396,7 @@ YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
 });
 ```
 
-###Video List
+### Video List
 
 Video list parent component doesn't essentially need a state as it's just holding a list of video items that not recording any information of user interactions. So we can just make it a plain functional component returning a `<ul>` first because we are expecting it to hold a list of video items.
 
@@ -505,7 +505,8 @@ const VideoList = (props) => {
 
 export default VideoList;
 ```
-###Manipulating the Video List Items
+### Manipulating the Video List Items
+
 First, let's make use of some ES6 syntax here. Instead of `props`, we replace the argument of `const VideoListItem` to `{video}` which is same meaning as `const video = props.video`.
 
 Next, we start doing whole bunch of markup after `return`:
@@ -565,10 +566,10 @@ export default VideoListItem;
 ```
 Switch to the browser, and you should see 5 blocks each with an image of the video and the title.
 
-###Video Details
+### Video Details
 -
 
-####Handling Null Props
+#### Handling Null Props
 
 Now let's quickly create a video detail component:
 
@@ -655,7 +656,7 @@ if (!video) {
 ```
 Switch to the browser and refresh, you will spot that the term "Loading..." stays for half a second and disappears. Video details render after that.
 
-####Video Selection
+#### Video Selection
 
 In index.js we need to add another state of the app: `selectVideo` and set the default to `null`. Update the class App:
 
@@ -699,9 +700,9 @@ const VideoListItem = ({video, onVideoSelect}) => {...
 >This is ES6 syntax, which is equivalent to:
 >
 >```js
-const video = props.video;
-const onVideoSelect = props.onVideoSelect;
-```
+>const video = props.video;
+>const onVideoSelect = props.onVideoSelect;
+>```
 
 Add an `onClick` function to the `<li>` item thus each list item respond to the click action:
 
@@ -719,7 +720,7 @@ Go the video list file, add the `onVideoSelect` functionality to the returned vi
 ``` 
 Switch to the browser, and now each list item should be response to your clicking action.
 
-###CSS Styling
+### CSS Styling
 
 ```js
 .search-bar {
