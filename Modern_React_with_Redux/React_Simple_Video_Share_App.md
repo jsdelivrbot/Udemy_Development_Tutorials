@@ -752,7 +752,7 @@ Switch to the browser, and now each list item should be response to your clickin
 }
 ```
 
-###Search for Videos
+### Search for Videos
 
 In order to fulfill the searching functionality, we need to first create a search method separately under constructor and move the YTSearch into the custom search method, change the term `'surfBoards'` to term and define it back to be `'surfBoards'` back into the constructor function:
 
@@ -797,7 +797,7 @@ onChange={(event) => this.onInputChange(event.target.value)}
 ```
 Switch back to the browser, type some content into the search bar, and you will find the video searching functionality working. 
 
-####Throttling Search Term Input
+#### Throttling Search Term Input
 
 At this stage, the searching is a bit laggy because the search functionality runs immediately after the user type in the search term. So we need sort of throttling to slow down the frequency of running the searching functionality.
 
