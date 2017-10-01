@@ -137,7 +137,7 @@ In order to make the file modular to get easy accesses and managements, we follo
 	- `touch video_list_item.js` which is a single video in the play list on right hand side
 	- `touch vido_list.js` which is the parent component of list items in the nested component of components
 
---- get youtube API key ---
+#### --- get youtube API key ---
 
 In index.js file, under `import ReactDOM from 'react-dom'` place the API key. As the API key is not being changed, we use `const`:
 
@@ -217,7 +217,7 @@ const App = () => {
 ReactDOM.render(<App />, document.querySelector('.container'));
 ```
 
-###Class-Based Components
+### Class-Based Components
 
 Navigate to search_bar.js file, delete the SearchBar variable and rewrite it in class based form:
 
@@ -256,7 +256,7 @@ class SearchBar extends Component {
 export default SearchBar;
 ```
 
-###Handling User Events
+### Handling User Events
 
 Handling events in react has two steps: 
 
@@ -287,18 +287,18 @@ onInputChange(event) {
 >This entire two parts could be replaced by single line arrow function in the input tag:
 >
 >```js
-return <input onChange={(event) => console.log(event.target.value)} />;
-```
+>return <input onChange={(event) => console.log(event.target.value)} />;
+>```
 
-refresh the page and type something into the input bar, check in the inspection and you will see whatever you typed being logged into the console.
+Refresh the page and type something into the input bar, check in the inspection and you will see whatever you typed being logged into the console.
 
 >Note that if you console log `event` instead of `event.target.value`, the console will return you the entire object instead of the specific value you type in, which looks like something below: 
 >
-```
-SyntheticEvent {dispatchConfig: {…}, dispatchMarker: ".0.0", nativeEvent: InputEvent, type: "change", target: input, …}
-```
+>```
+>SyntheticEvent {dispatchConfig: {…}, dispatchMarker: ".0.0", nativeEvent: InputEvent, type: >"change", target: input, …}
+>```
 
-###States
+### States
 State is a plain javascript object that is used to record and react to user events each class based component that we define has its own state object. Whenever a state is changed the component immediately re-renders and forces all its children to re-render as well. 
 
 Before we ever use a state inside of a component, we need to initialize the state object. To initialize the state, we set the property state to a plain javascript object inside of the class's `constructor` method:
