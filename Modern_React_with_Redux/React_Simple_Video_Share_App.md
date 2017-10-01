@@ -147,7 +147,7 @@ const API_KEY = 'WHAT_EVER_YOUR_KEY_HERE';
 After that, we need to install a npm package to enable the youtube API functionality:
 
 ```bash
-npm install --save youtube-api-search
+$ npm install --save youtube-api-search
 ```
 ###Search Bar
 Now proceed to create the search bar, open the search bar, create a function returning a input tag:
@@ -804,7 +804,7 @@ At this stage, the searching is a bit laggy because the search functionality run
 In order to throttle the frequency of running a certain function, we need an external library called lodash, go to the terminal and type:
 
 ```bash
-sudo npm install --save lodash
+$ sudo npm install --save lodash
 ```
 and after that, import it into the index.js at the very top:
 
