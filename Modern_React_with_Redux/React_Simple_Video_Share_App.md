@@ -722,7 +722,7 @@ Switch to the browser, and now each list item should be response to your clickin
 
 ### CSS Styling
 
-```js
+```css
 .search-bar {
     margin: 20px;
     text-align: center;
