@@ -95,17 +95,17 @@ ReactDOM.render(<App />, document.querySelector('.container'));
 ```
 >Note that the first argument is the component you are going to render. Instead of placing 'App' which is the class, <App /> which represents the instance of the class has been placed. Otherwise, it will give an error: 
 >
-```
-Uncaught Error: ReactDOM.render(): Invalid component element. 
-Instead of passing a component class, make sure to instantiate it by passing it to React.createElement.
-```
+>```
+>Uncaught Error: ReactDOM.render(): Invalid component element. 
+>Instead of passing a component class, make sure to instantiate it by passing it to >React.createElement.
+>```
 >The second element is the exact place we are rendering this component into. By checking the index.html file, we can find this element in the body:
-
+>
 >```html
-<body>
-    <div class="container"></div>
-</body>
-```
+><body>
+>    <div class="container"></div>
+></body>
+>```
 >where we are rendering all these components.
 
 So a very basic working react app from scratch has been created:
