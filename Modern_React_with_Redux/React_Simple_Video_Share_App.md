@@ -567,6 +567,7 @@ export default VideoListItem;
 Switch to the browser, and you should see 5 blocks each with an image of the video and the title.
 
 ### Video Details
+
 --
 
 #### Handling Null Props
