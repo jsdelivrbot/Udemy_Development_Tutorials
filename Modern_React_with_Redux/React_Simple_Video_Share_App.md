@@ -1,4 +1,5 @@
 # <div style="text-align: center">Video Share React App</div>
+
 <hr>
 
 Let's start making a very basic react app from starter code of minimal stuff to make it work.
@@ -93,8 +94,8 @@ Next, render the component into the page by typing the following under the secon
 ReactDOM.render(<App />, document.querySelector('.container'));
 ```
 >Note that the first argument is the component you are going to render. Instead of placing 'App' which is the class, <App /> which represents the instance of the class has been placed. Otherwise, it will give an error: 
-
->```
+>
+```
 Uncaught Error: ReactDOM.render(): Invalid component element. 
 Instead of passing a component class, make sure to instantiate it by passing it to React.createElement.
 ```
