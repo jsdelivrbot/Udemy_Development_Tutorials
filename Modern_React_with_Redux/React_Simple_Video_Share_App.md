@@ -1,4 +1,4 @@
-#<div style="text-align: center">Video Share React App</div>
+# <div style="text-align: center">Video Share React App</div>
 <hr>
 
 Let's start making a very basic react app from starter code of minimal stuff to make it work.
