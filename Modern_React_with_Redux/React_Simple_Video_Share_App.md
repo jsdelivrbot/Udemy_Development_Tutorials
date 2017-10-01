@@ -126,7 +126,7 @@ ReactDOM.render(<App />, document.querySelector('.container'));
 ```
 
 
-##React App with Clearer File Structure
+## React App with Clearer File Structure
 
 In order to make the file modular to get easy accesses and managements, we follow the convention keeping one component each file.
 
