@@ -566,6 +566,8 @@ Switch to the browser, and you should see 5 blocks each with an image of the vid
 
 ### Video Details
 
+--
+
 #### Handling Null Props
 
 Now let's quickly create a video detail component:
