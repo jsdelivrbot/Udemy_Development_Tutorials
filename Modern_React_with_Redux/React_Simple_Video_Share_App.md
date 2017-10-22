@@ -695,7 +695,7 @@ Go to video list item file, add `onVideoSelect` to the argument of the component
 
 ```js
 const VideoListItem = ({video, onVideoSelect}) => {...
-```
+```s
 >This is ES6 syntax, which is equivalent to:
 >
 >```js

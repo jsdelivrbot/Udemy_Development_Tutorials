@@ -276,3 +276,43 @@ In order to make the button connected with `allowNewServer` value, we enclose th
 > Square bracket in Angular indicates we are using property binding with dynamic values.
 >
 > In this case, `disabled` needs a boolean value returned, whereas `allowNewServer` returns either `true` or `false` thus satisfy the condition, so we can directly write `[disabled]="!allowNewServer"` as a property.
+
+### Property Binding vs String Interpolation
+
+Below the button, if we want to print the current value of the property `allowNewServer`, we can use either:
+
+- String Interpolation:
+
+```html
+<p>{{ allowNewServer }}</p>
+```
+- Property Binding
+
+```html
+<p [innerText]="allowNewServer"></p>
+```
+both give the same result at this instance.
+
+> Between the quotation marks of Property Binding , you can and must write typescript expressions which will return the value this property expects. In this case, for `[disabled]`, it expects `true` or `false`. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
