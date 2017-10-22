@@ -1,7 +1,5 @@
 # <div style="text-align: center">Video Share React App</div>
 
-<hr>
-
 Let's start making a very basic react app from starter code of minimal stuff to make it work.
 
 Go to [https://github.com/StephenGrider/ReduxCasts]() and downdoad the starter code, delete the `src` source folder and start from scratch:
@@ -25,7 +23,7 @@ const App = function() {
     return <div>Hi!</div>;
 }
 ```
-If you go to this online Babel compiler: [https://babeljs.io/repl/]() and type in the code above, you should be expecting this vanilla javascript code returned: 
+If you go to this online Babel compiler: [https://babeljs.io/repl/]() and type in the code above, you should be expecting this vanilla javascript code returned:
 
 ```js
 "use strict";
@@ -38,7 +36,7 @@ var App = function App() {
     );
 };
 ```
-which would be the final code intepreted by the browser after being compiled.
+which would be the final code interpreted by the browser after being compiled.
 
 Now if we change the `<div>` element to an `<ol>` element with several `<li>`:
 
@@ -93,10 +91,10 @@ Next, render the component into the page by typing the following under the secon
 ```js
 ReactDOM.render(<App />, document.querySelector('.container'));
 ```
->Note that the first argument is the component you are going to render. Instead of placing 'App' which is the class, <App /> which represents the instance of the class has been placed. Otherwise, it will give an error: 
+>Note that the first argument is the component you are going to render. Instead of placing 'App' which is the class, <App /> which represents the instance of the class has been placed. Otherwise, it will give an error:
 >
 >```
->Uncaught Error: ReactDOM.render(): Invalid component element. 
+>Uncaught Error: ReactDOM.render(): Invalid component element.
 >Instead of passing a component class, make sure to instantiate it by passing it to >React.createElement.
 >```
 >The second element is the exact place we are rendering this component into. By checking the index.html file, we can find this element in the body:
@@ -158,7 +156,7 @@ const SearchBar = () => {
 };
 ```
 Even no variables making reference to react yet, we still need to import react at the top to make react in the scope of this file:
- 
+
 ```js
 import React from 'react';
 ```
@@ -171,7 +169,7 @@ export default SearchBar
 ```
 Now in order to make use of it, switch back to the index.js file and import:
 
-```js 
+```js
 import SearchBar from './components/search_bar';
 ```
 >Note that we can't direct import from `'search_bar'` unlike the libraries as convention, for example, the `'react'` library is unique, as the program search through the porject, it will find only one library of react. However, as custom importing, we may have several different search bars in different places, thus need to be specific with the directory.
@@ -223,7 +221,7 @@ Navigate to search_bar.js file, delete the SearchBar variable and rewrite it in 
 
 ```js
 class SearchBar extends React.Component {
-    
+
 }
 ```
 >With `extends` presenting, this component can be read as "defining a new class called search bar and give it all the functionality that react component has"
@@ -237,7 +235,7 @@ class SearchBar extends React.Component {
     }
 }
 ```
-Now we can do some clean up using ES6 syntax: 
+Now we can do some clean up using ES6 syntax:
 
 - place a `{ Component }` behind `React` in the import line, this basically means: `const Component = React.Component;`
 - then take off the `React.` before `Component` in the `extends` statement
@@ -258,7 +256,7 @@ export default SearchBar;
 
 ### Handling User Events
 
-Handling events in react has two steps: 
+Handling events in react has two steps:
 
 - First, declare and event handler and the event handler is a function that should be triggered whenever the event occurs.
 - Second, we pass the event handler to the element that we want to monitor for events. So, in our case, we want to know whenever the input elements inside our input search bar has its text changed.  
@@ -292,14 +290,14 @@ onInputChange(event) {
 
 Refresh the page and type something into the input bar, check in the inspection and you will see whatever you typed being logged into the console.
 
->Note that if you console log `event` instead of `event.target.value`, the console will return you the entire object instead of the specific value you type in, which looks like something below: 
+>Note that if you console log `event` instead of `event.target.value`, the console will return you the entire object instead of the specific value you type in, which looks like something below:
 >
 >```
 >SyntheticEvent {dispatchConfig: {…}, dispatchMarker: ".0.0", nativeEvent: InputEvent, type: >"change", target: input, …}
 >```
 
 ### States
-State is a plain javascript object that is used to record and react to user events each class based component that we define has its own state object. Whenever a state is changed the component immediately re-renders and forces all its children to re-render as well. 
+State is a plain javascript object that is used to record and react to user events each class based component that we define has its own state object. Whenever a state is changed the component immediately re-renders and forces all its children to re-render as well.
 
 Before we ever use a state inside of a component, we need to initialize the state object. To initialize the state, we set the property state to a plain javascript object inside of the class's `constructor` method:
 
@@ -331,7 +329,7 @@ return (
 ```
 >The javascript variable wrapped the curly bracket is just being referenced instead of being modified like `{this.state.term} = '4'`.
 >
->What has happened here is that whenever we change the input, this function: `(event) => this.setState({ term: event.target.value })` runs because it's the event handler. We set the state with the new value of input. As long as we update the state, this causes the our component to automatically re-render and push all the updated information from the render method into the DOM. 
+>What has happened here is that whenever we change the input, this function: `(event) => this.setState({ term: event.target.value })` runs because it's the event handler. We set the state with the new value of input. As long as we update the state, this causes the our component to automatically re-render and push all the updated information from the render method into the DOM.
 
 ## Ajax Request
 
@@ -383,8 +381,8 @@ constructor(props) {
         this.setState({ videos: data });
     });
 }
-``` 
-You may further refactor by 
+```
+You may further refactor by
 
 - replacing the `function` key word with an arrow function;
 - replacing the argument `data` with `videos` which makes a lot more sense. As the items of key value pair are now identical: `{ videos: videos }`, we can utilise the advantages of ES6 syntax to simplify and clean up the code to just `{ videos }` as following:
@@ -481,8 +479,8 @@ const videoItems = props.videos.map((video) => {
 Switch to the browser, refresh and you will see a list of 5 Video items and the following logged in the console:
 
 ```
-Warning: Each child in an array or iterator should have a unique "key" prop. 
-Check the render method of `VideoList`. 
+Warning: Each child in an array or iterator should have a unique "key" prop.
+Check the render method of `VideoList`.
 See https://fb.me/react-warning-keys for more information.
 ```
 Adding a key to the list, we need a consistent piece of information unique to that particular record. The common strategy is to use the ID of the data, in this case, we use the etag property of the object by adding in `key={video.etag}` to `<VideoListItem video={video} />`. The Video List file should be looking like the following at this stage:
@@ -524,7 +522,7 @@ Next, we start doing whole bunch of markup after `return`:
     </div>
 </li>
 ```
-Switch to the browser and refresh, you should see a list of 5 empty blocks. 
+Switch to the browser and refresh, you should see a list of 5 empty blocks.
 
 In order to render the information of the video items, we first need to define before the returning:
 
@@ -718,7 +716,7 @@ Go the video list file, add the `onVideoSelect` functionality to the returned vi
     key={video.etag}
     video={video}
 />
-``` 
+```
 Switch to the browser, and now each list item should be response to your clicking action.
 
 ### CSS Styling
@@ -796,7 +794,7 @@ and update the `onChange` method in `<input />` tag:
 ```js
 onChange={(event) => this.onInputChange(event.target.value)}
 ```
-Switch back to the browser, type some content into the search bar, and you will find the video searching functionality working. 
+Switch back to the browser, type some content into the search bar, and you will find the video searching functionality working.
 
 #### Throttling Search Term Input
 
@@ -818,7 +816,7 @@ import Lodash from 'lodash';
 >import _ from 'lodash';
 >```
 
-Then we define a variable videoSearch and pass through a `debounce` function from the lodash library: 
+Then we define a variable videoSearch and pass through a `debounce` function from the lodash library:
 
 ```js
 const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
@@ -832,5 +830,3 @@ After that we update the Search Bar component in the render function:
 ```
 
 Switch back to the browser and type some content into the search bar, you will find that the searching functionality doesn't run immediately each time you type stuff in.
-
-
