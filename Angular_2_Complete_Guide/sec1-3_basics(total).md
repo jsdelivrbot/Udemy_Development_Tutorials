@@ -277,7 +277,7 @@ In order to make the button connected with `allowNewServer` value, we enclose th
 >
 > In this case, `disabled` needs a boolean value returned, whereas `allowNewServer` returns either `true` or `false` thus satisfy the condition, so we can directly write `[disabled]="!allowNewServer"` as a property.
 
-### Property Binding vs String Interpolation
+#### Property Binding vs String Interpolation
 
 Below the button, if we want to print the current value of the property `allowNewServer`, we can use either:
 
@@ -295,7 +295,93 @@ both give the same result at this instance.
 
 > Between the quotation marks of Property Binding , you can and must write typescript expressions which will return the value this property expects. In this case, for `[disabled]`, it expects `true` or `false`. 
 
+### Event Binding
 
+After the button being able to be clicked, if we want the button to do something once we click it, we need to add event to it.
+
+First, create a new property in the class:
+
+```js
+serverCreationStatus = 'No server was created!';
+```
+Instead of outputting data, we want to listen to some event, so we need to add another method below `ngOnInit`:
+
+```js
+onCreateServer() {
+  this.serverCreationStatus = 'Server was created!';
+}
+```
+> the `on` at the beginning of the method name symbolised and makes clear that this will be triggerd from within the template. This convention makes it easier to understand who will call this method.
+
+If we want to listen to the event here, we can utilise the typical click attribute in the html element `onClick=""` or use event binding which wrap the event by parenthesis and the method executed `onCreateServer()` after the equal sign:
+
+```html
+<button 
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()">
+  Add Server
+</button>
+<p>{{ serverCreationStatus }}</p>
+```
+Switch back to the browser, originally the `<p>{{ serverCreationStatus }}</p>` under the button was returning false. After pressing the button, the text changed to true indicating we are triggering our custom method of  `onCreateServer()` in the .ts file. 
+
+#### Passing Data with Event Binding
+
+Create a label tag and an input tag above the button. Allow the user to enter the name of the server which should get created. 
+
+```html
+<input 
+  type="text" 
+  class="form-control" 
+  (input)="onUpdateServerName($event)"
+>
+<p>{{ serverName }}</p>
+```
+> The "dollar sign event " `$event` is kind of reserved variable name that we can use the template when using event so between these quotation marks can be captured as argument and send to the method we are calling.
+
+Add this method to the component allow it to output what the user entered.
+
+```js
+onUpdateServerName(event: any) {
+  console.log(event);
+  this.serverName = (<HTMLInputElement>event.target).value;
+}
+```
+and define a `serverName` property to empty string above:
+
+```js
+serverName = '';
+```
+Go to browser and type something in the input tag, you will find the `<p>{{ serverName }}</p>` below returning the stuff you enter. 
+
+#### Two Way Data-Binding
+
+There is an easier way of two way data binding here. We first copy and comment out the entire input tag above, paste and delete the `(input)="onUpdateServerName($event)"` part and change to:
+
+```html
+<input 
+  type="text" 
+  class="form-control" 
+  [(ngModel)]="serverName"
+>
+```
+> To be able to use `ngModel`, the `FormsModule` from `@angular/forms` needs to be added to your import array in the AppModule: `imports: [  FormsModule ],`
+
+The `ngModel` setup here will trigger on the input event and update the value of server name in our component automatically. On the other hand since it is two way binding it will also update the value of the input element if we change the server name somewhere else.
+
+We can demostrate this by preset the property: `serverName = 'TestServerInitial';`, and uncomment the previous input tag. If we go to the browser, you can see the second input tag has 'TestServerInitial' originally there and the paragraph below returning the same value, but the first input tag has nothing in it. If you type something in the first input tag, the p-tag will return immediately the stuff you wrote. But if you type in the second input tag, the first input tag is not getting changed due that it is not two-way data binding.
+
+Lastly we combine different ways of data binding together by updating the `onCreateServer` method:
+
+```js
+onCreateServer() {
+  this.serverCreationStatus = 'Server was created! Name is' + this.serverName;
+}
+```
+and comment out the p-tag stating `serverName` instantly and the first input tag. 
+
+Now we go to the browser, type something into the input tag and then press the button 'Add Server', the updated server name will be shown below the input.
 
 
 
