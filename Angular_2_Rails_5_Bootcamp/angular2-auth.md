@@ -23,10 +23,10 @@ so the current ruby gem dependencies (few lines around the above two) should loo
 
 ```
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
- gem 'rack-cors'
- gem 'active_model_serializers', '~> 0.10.0'
- gem 'devise_token_auth'
- gem 'omniauth'
+  gem 'rack-cors'
+  gem 'active_model_serializers', '~> 0.10.0'
+  gem 'devise_token_auth'
+  gem 'omniauth'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
