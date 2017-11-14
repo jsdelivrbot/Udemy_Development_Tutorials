@@ -31,7 +31,7 @@ export default function() { ...
 Then we need to wire into our application, we do this inside `index.js`, following the boilplate code:
 
 ```js
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
     state: (state = {}) => state
@@ -49,7 +49,7 @@ books: BooksReducer
 and import the book reducer file:
 
 ```js
-import BooksReducer from "./reducer_books";
+import BooksReducer from './reducer_books';
 ```
 
 ### Containers
@@ -57,7 +57,7 @@ import BooksReducer from "./reducer_books";
 In order to make sure the code is actually generating usable state for application, we are going to do this by creating a booklist component within react. So we go to the `components` folder and create `book-list.js`:
 
 ```js
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export default class BookList extends Component {
     render() {
@@ -261,6 +261,74 @@ Go back to the digram again:
 </p>
 
 We've now created a reducer that called the book selected action and returns the payload. The selected book will now end up as the value for active book on our state.
+
+Next we are going to flesh out the book detail view which will render whenever there is a selected book. 
+
+>Before we make this book detail, we need to decide whether we are making a component or a container. Containers can touch the redux state directly. We currently know what our book is and we know when it changes, so it makes sense this book detail should be a container.
+
+>The `component/app.js` doesn't really care about the active book and the purpose of app is to render the `BookList` and soon the book details to be created. Only the book details cares about the active book.
+
+>Therefore we make the active book component a container
+
+Navigate to container folder and touch `book-detail.js`:
+
+```js
+import React, { Component } from 'react';
+
+export default class BookDetail extends Component {
+    render() {
+        return (
+            <div>Book Detail!</div>
+        );
+    }
+}
+```
+Flip back to `component/app.js` and we need to make sure it has been rendered within our application. Import below `BookList`:
+
+```js
+import BookDetail from '../containers/book-detail'
+```
+and in render method add `BookDetail` component:
+
+```js
+render() {
+    return (
+        <div>
+            <BookList />
+            <BookDetail />
+        </div>
+    );
+}
+```
+Now flip back to the brower and refresh, we can see **Book Detail!** rendered in the page
+
+After that, we replicate the mapping functions in BookList into BookDetails. First, import the connect function: 
+
+```js
+import { connect } from 'react-redux';
+```
+Then we define the helper function in the bottom:
+
+```js
+function mappStateToProps(state) {
+    return {
+        book: state.activeBook
+    };
+}
+```
+>`state.activeBook` here specifically referencing to the `activeBook`  in `reducers/index.js` file. 
+
+Lastly, make sure export the container at the very bottom:
+
+```js
+export default connect(mappStateToProps)(BookDetail);
+```
+>Remeber to remove the `export default` up in `BookDetail` class.
+
+
+
+
+
 
 
 
