@@ -381,7 +381,10 @@ return (
     </div>
 );
 ```
-and flip back to the browser and refresh, and click on a certain book.
+and flip back to the browser and refresh, and click on a certain book. You will see stuff like the below returned:
+
+Title: Harry Potter
+Pages: 39
 
 
 
