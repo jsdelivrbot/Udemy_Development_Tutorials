@@ -392,6 +392,17 @@ Pages: 39
 
 ---
 
+>***P.S.1***: The application state is completely different than and separate from a component state with no tie. Our components can still render `this.state.something` or `this.setState({something: 'something'})`
+
+>***P.S.2***: The application state is formed by the reducers. The reducers get all tied with `combineReducers()` method inside of the `reducers/index.js` file for each key in our `combineReducers({})` object, we assign one reducer and that reducer is responsible for creating this piece of state. Thus whatever `activeBook` returns will be available as our `activeBook` application state.
+
+>***P.S.3***: The reducers are in charge of manipulating or changing our application state over time. This has been achieved through `action`. Whenever an action is dispatched it flows through all of the different reducers in our application and each reducer has the option to return a different pieve of state than the usual based on the type of action that was received.
+
+
+
+
+
+
 
 
 
