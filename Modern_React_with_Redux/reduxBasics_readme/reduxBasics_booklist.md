@@ -205,7 +205,7 @@ export function selectBook(book) {
     };
 }
 ```
->actions usually have two values, a type and a payload. The payload further describes and clarifies the conditions of the action that's being triggered every action must have a type that describes the purpose of the action. The action described is a user selecting the book.
+>**Notes:** actions usually have two values, a type and a payload. The payload further describes and clarifies the conditions of the action that's being triggered every action must have a type that describes the purpose of the action. The action described is a user selecting the book.
 
 <p align="center">
     <img src="./action_creators_diagram.png" align="center" width="650px" />
@@ -265,9 +265,9 @@ We've now created a reducer that called the book selected action and returns the
 Next we are going to flesh out the book detail view which will render whenever there is a selected book. 
 
 >Before we make this book detail, we need to decide whether we are making a component or a container. Containers can touch the redux state directly. We currently know what our book is and we know when it changes, so it makes sense this book detail should be a container.
-
+>
 >The `component/app.js` doesn't really care about the active book and the purpose of app is to render the `BookList` and soon the book details to be created. Only the book details cares about the active book.
-
+>
 >Therefore we make the active book component a container
 
 Navigate to container folder and touch `book-detail.js`:
@@ -325,8 +325,63 @@ export default connect(mappStateToProps)(BookDetail);
 ```
 >Remeber to remove the `export default` up in `BookDetail` class.
 
+#### Conditional Rendering
 
+Now go back to the book detail file and make use of the object returned in render function:
 
+Take out the placeholder text of "Book Detail!" and type:
+
+```js
+return (
+    <div>
+        <h3>Details for:</h3>
+        <div>{ this.props.book.title }</div>
+    </div>
+);
+```
+go to the page and refresh, we get this following error returned:
+
+```bash
+Uncaught TypeError: Cannot read property 'title' of null
+```
+>Flip back to `reducer_active_books.js`, 
+
+>**Note:** Whenever application first loaded up, we don't have any existing application state defined yet. Our application state is assembled entirely by all of our reducers. Redux sends a couple of booting up actions through all these reducers. 
+>Since the default active `state` has been set to `null`, when our application first boots up, that caused the component `<div>{ this.props.book.title }</div>`(specifically `this.props.book`) in book detail file to be rendered as null. Thus we are trying to read property title of null which returns an error in Javascript.
+
+In order to solve this, we need to add a initial check within the render method before the return:
+
+```js
+if (!this.props.book) {
+    return <div>Select a book to get started</div>
+}
+```
+and then flip to the browser and refresh, you will see "Select a book to get started" initially defined. If you click on a book, `this.props.book` will return a certain book with `title` property returned.
+
+Now, add one more property `pages` to the `reducer_books.js`:
+
+```js
+export default function() {
+    return [
+        { title: "Javascript: The Good Parts", pages: 101 },
+        { title: "Harry Potter", pages: 39 },
+        { title: "The Dark Tower", pages: 85 },
+        { title: "Eloquent Ruby", pages: 1 }
+    ];
+}
+```
+and call it in the book detail component:
+
+```js
+return (
+    <div>
+        <h3>Details for:</h3>
+        <div>Title: { this.props.book.title }</div>
+        <div>Pages: { this.props.book.pages }</div>
+    </div>
+);
+```
+and flip back to the browser and refresh, and click on a certain book.
 
 
 
