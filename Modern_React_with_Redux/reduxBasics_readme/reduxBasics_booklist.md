@@ -381,11 +381,12 @@ return (
     </div>
 );
 ```
-and flip back to the browser and refresh, and click on a certain book. You will see stuff like the below returned:
+and flip back to the browser and refresh, and click on a certain book. You will see stuff like the below returned on the page:
 
+```
 Title: Harry Potter
 Pages: 39
-
+```
 
 
 
