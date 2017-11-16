@@ -398,9 +398,9 @@ Pages: 39
 
 >***P.S.3***: The reducers are in charge of manipulating or changing our application state over time. This has been achieved through `action`. Whenever an action is dispatched it flows through all of the different reducers in our application and each reducer has the option to return a different pieve of state than the usual based on the type of action that was received.
 
-### Appendix: Final Code
+### Appendix: Final Codes in `src` directory
 
-#### `actions/index.js`
+#### `src/actions/index.js`
 
 ```js
 export function selectBook(book) {
@@ -412,7 +412,7 @@ export function selectBook(book) {
 }
 ```
 
-####  `components/app.js`
+####  `src/components/app.js`
 
 ```js
 import React from 'react';
@@ -433,7 +433,7 @@ export default class App extends Component {
 }
 ```
 
-#### `containers/book-list.js`
+#### `src/containers/book-list.js`
 
 ```js
 import React, { Component } from "react";
@@ -482,7 +482,7 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(BookList);
 ```
 
-#### `containers/book-detail.js`
+#### `src/containers/book-detail.js`
 
 ```js
 import React, { Component } from 'react';
@@ -513,7 +513,7 @@ function mappStateToProps(state) {
 export default connect(mappStateToProps)(BookDetail);
 ```
 
-#### `reducers/index.js`
+#### `src/reducers/index.js`
 
 ```js
 import { combineReducers } from 'redux';
@@ -528,7 +528,7 @@ const rootReducer = combineReducers({
 export default rootReducer;
 ```
 
-#### `reducers/reducer_book.js`
+#### `src/reducers/reducer_book.js`
 
 ```js 
 export default function() {
@@ -541,7 +541,7 @@ export default function() {
 }
 ```
 
-#### `reducers/reducer_active_book.js`
+#### `src/reducers/reducer_active_book.js`
 
 ```js
 // State argument is not application state, only the state this reducer is responsible for
@@ -555,7 +555,7 @@ export default function(state = null, action) {
 }
 ```
 
-#### `index.js`
+#### `src/index.js`
 
 ```js
 import React from 'react';
@@ -575,10 +575,3 @@ ReactDOM.render(
     , document.querySelector('.container')
 );
 ```
-
-
-
-
-
-
-
