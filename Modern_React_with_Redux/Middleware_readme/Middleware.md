@@ -121,7 +121,39 @@ constructor(props) {
 >```js
 >this.onInputChange = this.onInputChange.bind(this);
 >``` 
+>
 >Or otherwise will return a pretty clear error message stating that the program doesn't know what the fuction `setState()` is. Our component only has one reference to `setState` thus it should be relatively easy to track. This rule could apply to other situations, when a function has not been recognised, the first idea come up should be checking binding the context.
+
+### Form Elements in React
+
+> **Note:** If we type something in the search bar and hit submit or hit `Enter` ky, the browser will automatically refresh and submit the form as POST request and the url changed to `http://localhost:8080/?`. This is a unanimous behaviour of all browsers. 
+
+As being a single page application, we need to prevent the page from refreshing all the time and we don't want it to change the html documents. 
+
+We can prevent this behaviour by adding an event handler to the form element. We want to handle the submit event on the form and submit being a very particular key-word here. Following the normal react nomenclature for handling DOM events, we are going to pass a new function handler to the property named `onSubmit`:
+
+```js
+onsubmit={this.onFormSubmit}
+```
+into the `<form>` element and define the function above:
+
+```js
+onFormSubmit(event) {
+    event.preventDefault()
+}
+```
+> This function at this instance basically tell the browser, don't submit the form. 
+
+Now switch to the browser, type something into the search bar and hit submit, the form is not submitting itself. 
+
+>##### **Note:** So why do we use a `<form>` not instead use just  `<div>` element?
+>We get free functionalities from using a form, whenever users see a search bar, they have kind of an expectation that they should be able to type something in and then just press enter or hit submit. As being a `<form>` element, we get that behaviour for free so we don't have to set up another event handler to define the behaviour when the user hit the enter or click the submit, try to submit the form.
+
+### Working with API's
+
+
+
+
 
 
 
