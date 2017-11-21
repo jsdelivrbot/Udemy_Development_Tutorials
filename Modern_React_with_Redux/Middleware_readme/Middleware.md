@@ -77,7 +77,7 @@ onInputChange(event) {
     console.log(event.target.value)
 }
 ```
->When we don't have something to update the state in `value={this.state.term}`, it never actually gets displayed, so the value when we type in here is going to stay blank. However, as long as someone type in the search bar,  you can find the content being logged in the console. The value of the input comes from `this.state` term. 
+>**Note:** When we don't have something to update the state in `value={this.state.term}`, it never actually gets displayed, so the value when we type in here is going to stay blank. However, as long as someone type in the search bar,  you can find the content being logged in the console. The value of the input comes from `this.state` term. 
 
 We are not updating that state, so it never appears the text in the search bar, but the keypresses do occur in the console log when we type in texts.
 
@@ -85,7 +85,7 @@ In order to fix this by going ahead setting our state whenever we enter some tex
 
 ```js
 onInputChange(event) {
-    console.log(event.target.value)
+    console.log(event.target.value);
     this.setState({ term: event.target.value })
 }
 ```
@@ -96,13 +96,32 @@ Switch back to the browser and type something into the search bar, you will find
 ```bash
 Uncaught TypeError: Cannot read property 'setState' of undefined
 ```
+>**Note:** Whenever we pass off any event handler like this and then call it, the value of `this` is not going to be our search component as a react component, it will be some mystery context hard to interpretate. Because `this` is not the actual component.
 
+To solve this, we can make this an arrow function:
 
+```js
+onChange={() => this.onInputChange}
+```
+or take a different approach to find the context of `onInputChange` in the `constructor`:
 
+```js
+constructor(props) {
+    super(props);
 
+    this.state = { term: '' };
 
+    this.onInputChange = this.onInputChange.bind(this);
+}
+```
+>**Note:** in the above line, `this` in the right hand side, which is our instance of `SearchBar` has a function called `onInputChange`, `bind` that function to this which is `SearchBar` and then replace `onInputChange` with this new bound instance of function `this.onInputChange` in the left hand side. Basically find the existing instance of `this.onInputChange` and bind and overwrite the local method `this.onInputChange` here.
 
-
+>**Recap:** if you pass a callback around as a function like `this` in `this.onInputChange` and that callback has a reference to `this` in `this.setState(...)` in `onInputChange()` method, you need bind with the context using: 
+>
+>```js
+>this.onInputChange = this.onInputChange.bind(this);
+>``` 
+>Or otherwise will return a pretty clear error message stating that the program doesn't know what the fuction `setState()` is. Our component only has one reference to `setState` thus it should be relatively easy to track. This rule could apply to other situations, when a function has not been recognised, the first idea come up should be checking binding the context.
 
 
 
