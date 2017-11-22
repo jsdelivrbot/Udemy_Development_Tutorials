@@ -146,15 +146,104 @@ onFormSubmit(event) {
 
 Now switch to the browser, type something into the search bar and hit submit, the form is not submitting itself. 
 
->##### **Note:** So why do we use a `<form>` not instead use just  `<div>` element?
+>##### **Thinking:** So why do we use a `<form>` not instead use just  `<div>` element?
 >We get free functionalities from using a form, whenever users see a search bar, they have kind of an expectation that they should be able to type something in and then just press enter or hit submit. As being a `<form>` element, we get that behaviour for free so we don't have to set up another event handler to define the behaviour when the user hit the enter or click the submit, try to submit the form.
 
 ### Working with API's
 
+At the beginning of this session, let's dive into the investigation of the API we are going to use. We type in [http://openweathermap.org/forecast5](http://openweathermap.org/forecast5)  in the browser. Then we find an API that we can use to grab forecasts and wether data in the next five days for a particular city.  
 
+API call:
 
+```
+api.openweathermap.org/data/2.5/forecast?q={city name},{country code}
+```
+>"q" means query
 
+We can click the sample of London: 
+http://samples.openweathermap.org/data/2.5/forecast?q=London,us&mode=xml&appid=b1b15e88fa797225412429c1c50c122a1 
+which you should have got somthing returned like the following:
 
+```xml
+<weatherdata>
+    <location>
+        <name>London</name>
+        <type/>
+        <country>US</country>
+        <timezone/>
+        <location altitude="0" latitude="39.8865" longitude="-83.4483" geobase="geonames" geobaseid="4517009"/>
+    </location>
+    <credit/>
+    <meta>
+        <lastupdate/>
+        <calctime>0.0028</calctime>
+        <nextupdate/>
+    </meta>
+    <sun rise="2017-03-03T12:03:03" set="2017-03-03T23:28:37"/>
+    <forecast>
+        <time from="2017-03-03T06:00:00" to="2017-03-03T09:00:00">
+            <symbol number="600" name="light snow" var="13n"/>
+            <precipitation unit="3h" value="0.03125" type="snow"/>
+            <windDirection deg="303.004" code="WNW" name="West-northwest"/>
+            <windSpeed mps="2.29" name="Light breeze"/>
+            <temperature unit="kelvin" value="269.91" min="269.91" max="270.877"/>
+            <pressure unit="hPa" value="1005.61"/>
+            <humidity value="93" unit="%"/>
+            <clouds value="scattered clouds" all="32" unit="%"/>
+        </time>
+        ......
+```
+
+> We may notice that this is XML, in order to work with JSON, simply delete `mode=xml&` part in the url, left http://samples.openweathermap.org/data/2.5/forecast?q=London,us&appid=b1b15e88fa797225412429c1c50c122a1 then we should be getting something back like the following:
+
+```JSON
+{
+    "cod": "200",
+    "message": 0.0032,
+    "cnt": 36,
+    "list": [
+    {
+        "dt": 1487246400,
+        "main": {
+            "temp": 286.67,
+            "temp_min": 281.556,
+            "temp_max": 286.67,
+            "pressure": 972.73,
+            "sea_level": 1046.46,
+            "grnd_level": 972.73,
+            "humidity": 75,
+            "temp_kf": 5.11
+        },
+        "weather": [
+            {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+            }
+        ],
+        "clouds": {
+            "all": 0
+        },
+        "wind": {
+            "speed": 1.81,
+            "deg": 247.501
+        },
+        "sys": {
+            "pod": "d"
+        },
+        "dt_txt": "2017-02-16 12:00:00"
+    },
+    {......
+```
+After this, we go back to the documentation and sign up and take the API key, and go back to the IDE, open the action folder, In `actions/index.js`, asign this key:
+
+```js
+const API_KEY = 'ee74d7e4ba8024a1fc434db577fe8369';
+```
+and this is the API key we are going to make use of when we make the actual request.
+
+### Introduction to Middleware
 
 
 
