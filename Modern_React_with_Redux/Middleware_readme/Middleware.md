@@ -234,7 +234,7 @@ which you should have got somthing returned like the following:
         },
         "dt_txt": "2017-02-16 12:00:00"
     },
-    {......
+    {...
 ```
 After this, we go back to the documentation and sign up and take the API key, and go back to the IDE, open the action folder, In `actions/index.js`, asign this key:
 
