@@ -246,6 +246,37 @@ and this is the API key we are going to make use of when we make the actual requ
 
 ### Introduction to Middleware
 
+We first look at the diagram similar to we have seen before:
+
+<p align="center">
+    <img src="./middleware_structure_diagram.jpg" align="center" width="700px" />
+</p>
+
+This diagram specify the action creator cycle in a redux application. When user calls the action creator that returns action, the action flows into the reducer, the reducer assemble a new global application state and then that gets injected back into our application. 
+
+>**Note**: Comparing with the previous cycle, we got one more step added into the system, the middleware. **Middleware** is a function that take an action and depending on the actions type and the actions payload or any other number of factors the middleware can choose to let the action pass through, it can manipulate the action before they reach any reducer. We can think of these middlewares as gatekeepers.
+
+This section, we are going to `redux-promise`. Go to https://www.npmjs.com/package/redux-promise, follow the instruction:
+
+```bash
+npm install --save redux-promise
+```
+Then, in root directory `src/index.js`:
+
+```js
+import ReduxPromise from 'redux-promise';
+```
+and we are going apply that middleware by adding it in the first parenthesis of `applyMiddleware()(createStore)`:
+
+```js
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+```
+
+### Ajax Request with Axios
+
+In this section we are going to work on creating actual Ajax request.
+
+
 
 
 
