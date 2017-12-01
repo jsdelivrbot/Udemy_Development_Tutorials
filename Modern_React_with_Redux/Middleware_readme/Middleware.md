@@ -276,7 +276,116 @@ const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 In this section we are going to work on creating actual Ajax request.
 
+Inside `action/index.js`, we are going to create an action creator that is going to be responsible for making an API request to go fetch our weather data. Similarly, we create a new function and export it so it can be used by other files:
 
+>**Note:** Remember action creators always have to return an action and an action is an object which always return an action which always have a `type`:
+
+The last time we created an action creator, the type was a string. This time we try to extract the string in a separate function above the action creator: 
+
+```js
+export const FETCH_WEATHER = 'FETCH_WEATHER';
+
+export function fetchWeather() {
+    return {
+        type: FETCH_WEATHER
+    };
+}
+```
+>The purpose of doing so is to keep the action type consistent between our action creators and our reducers. Later this variable will be import to the reducer and we don't have to referencing complicated strings between different files.
+
+To make our API request we need to put together our request URL. Go to weather map and copy the url: http://samples.openweathermap.org/data/2.5/forecast?q=London,us&appid=b1b15e88fa797225412429c1c50c122a1
+
+Switch back to `actions/index.js`, under the line of the definition of `API_KEY`:
+
+```js
+const ROOT_URL = 'http://samples.openweathermap.org/data/2.5/forecast?q=London,us&appid=b1b15e88fa797225412429c1c50c122a1';
+```
+> `http://samples.openweathermap.org/data/2.5/forecast?` is the part of route, domain and path;
+> `q=London,us` is the query;
+> `appid=b1b15e88fa797225412429c1c50c122a1` is the application id which should be our API key instead. 
+
+We need to clean up the url by:
+
+- Deleting everthing in query part (including `&` sign);
+- Delete everything after the equal sign of the `appid`; 
+- Add `+ API_KEY` behind the url
+
+```js
+const ROOT_URL = 'http://samples.openweathermap.org/data/2.5/forecast?appid=' + API_KEY;
+```
+Alternatively, we could exploit the ES6 syntax using dollar sign and curly bracket:
+
+```js
+const ROOT_URL = `http://samples.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
+```
+After that, by looking at the documentation:
+
+---
+API call:
+api.openweathermap.org/data/2.5/forecast?q={city name},{country code}
+---
+we could find that the url consist of `q={city name},{country code}`, thus we pass an argument of `city` into the `fetchWeather()` function. Then we adopt the pattern above into the function by defining `const url`
+
+```js
+const url = `${ROOT_URL}&q=${city},us`;
+```
+> To simplify the process, we make the country code static using `us` for now.
+
+In order to get the url for ajax request, we need to install a package called Axios from ternminal
+
+```bash
+npm install --save axios
+```
+>**Note:** Axios is solely made for making AJAX requests from the browser which works almost identical to Jquery.
+
+Then at the top of the file, we are going to import Axios library
+
+```js
+import axios from 'axios';
+```
+then below `const url`, write the line to get the url above and return a promise:
+
+```js
+const request = axios.get(url);
+```
+Lastly, we are going to pass that request into our action as payload:
+
+>**Note:** payload is an optional property that goes along with actions that can contain some additional data that describes this particular action.
+
+```js
+return {
+    type: FETCH_WEATHER,
+    payload: request
+};
+```
+
+### Redux-Promise in Practice
+
+Switch back to the search bar file. We first import  several stuff at the top:
+
+```js 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { fetchWeather } from "../actions/index";
+```
+At this stage, switch back to the browser and check if there is error logged in the console.
+
+The goal of this session is to hook up the action creator `fetchWeather` to the `SearchBar` container. Once again, we go to the very below and define the function `mapDispatchToProps(dispatch)`:
+
+```js
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ fetchWeather }, dispatch);
+}
+```
+>**Note:** this cause the action creator whenever it gets called, returns an action `bindActionCreators` make sure that action flows down into the middleware and then the reducers inside of our redux application.
+
+After we have got our `mapDispatchToProps`, we make the `export`:
+
+```js
+export default connect(null, mapDispatchToProps)(SearchBar)
+```
+and delete the `export default` above for the `SearchBar` component
 
 
 
