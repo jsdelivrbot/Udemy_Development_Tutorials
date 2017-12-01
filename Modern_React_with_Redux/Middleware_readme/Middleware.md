@@ -414,7 +414,7 @@ this.onFormSubmit = this.onFormSubmit.bind(this);
 ```
 Now, switch back to the browser and type in 'New York' again, open the network, XHR in inspection, you will see response similar to below in the preview tag:
 
-```json
+```
 {cod: "200", message: 0.0037, cnt: 40,…}
   city: {id: 5128581, name: "New York", coord: {lat: 40.7143, lon: -74.006}, country: "US"}
     coord: {lat: 40.7143, lon: -74.006}
