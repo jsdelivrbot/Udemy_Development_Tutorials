@@ -133,7 +133,7 @@ As being a single page application, we need to prevent the page from refreshing 
 We can prevent this behaviour by adding an event handler to the form element. We want to handle the submit event on the form and submit being a very particular key-word here. Following the normal react nomenclature for handling DOM events, we are going to pass a new function handler to the property named `onSubmit`:
 
 ```js
-onsubmit={this.onFormSubmit}
+onSubmit={this.onFormSubmit}
 ```
 into the `<form>` element and define the function above:
 
@@ -298,9 +298,9 @@ To make our API request we need to put together our request URL. Go to weather m
 Switch back to `actions/index.js`, under the line of the definition of `API_KEY`:
 
 ```js
-const ROOT_URL = 'http://samples.openweathermap.org/data/2.5/forecast?q=London,us&appid=b1b15e88fa797225412429c1c50c122a1';
+const ROOT_URL = 'http://api.openweathermap.org/data/2.5/forecast?q=London,us&appid=b1b15e88fa797225412429c1c50c122a1';
 ```
-> `http://samples.openweathermap.org/data/2.5/forecast?` is the part of route, domain and path;
+> `http://api.openweathermap.org/data/2.5/forecast?` is the part of route, domain and path;
 > `q=London,us` is the query;
 > `appid=b1b15e88fa797225412429c1c50c122a1` is the application id which should be our API key instead. 
 
@@ -311,12 +311,12 @@ We need to clean up the url by:
 - Add `+ API_KEY` behind the url
 
 ```js
-const ROOT_URL = 'http://samples.openweathermap.org/data/2.5/forecast?appid=' + API_KEY;
+const ROOT_URL = 'http://api.openweathermap.org/data/2.5/forecast?appid=' + API_KEY;
 ```
 Alternatively, we could exploit the ES6 syntax using dollar sign and curly bracket:
 
 ```js
-const ROOT_URL = `http://samples.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
+const ROOT_URL = `http://api.openweathermap.org/data/2.5/forecast?appid=${API_KEY}`;
 ```
 After that, by looking at the documentation:
 
@@ -332,7 +332,7 @@ we could find that the url consist of `q={city name},{country code}`, thus we pa
 ```js
 const url = `${ROOT_URL}&q=${city},us`;
 ```
-> To simplify the process, we make the country code static using `us` for now.
+> To simplify the process, we make the country code static using `us` (united states) or now.
 
 In order to get the url for ajax request, we need to install a package called Axios from ternminal
 
@@ -381,7 +381,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ fetchWeather }, dispatch);
 }
 ```
->**Note:** this cause the action creator whenever it gets called, returns an action `bindActionCreators` make sure that action flows down into the middleware and then the reducers inside of our redux application.
+> **Note:** this cause the action creator whenever it gets called, returns an action `bindActionCreators` make sure that action flows down into the middleware and then the reducers inside of our redux application.
 
 After we have got our `mapDispatchToProps`, we make the `export`:
 
@@ -390,7 +390,47 @@ export default connect(null, mapDispatchToProps)(SearchBar);
 ```
 and delete the `export default` above for the `SearchBar` component
 
->**Note:** previously when we had components that we used `mapDispatchToProps` or `mapStateToProps`, we never use `null` as the first argument. The reason we are passing null in here is that whenever you are passing through a function that is supposed to map our dispatch to the props of our containers, it always goes in as the second argument. By placing a `null` here, it indicates that `redux` is maintaining some state but this container doesn't care about it at all.
+> **Note:** previously when we had components that we used `mapDispatchToProps` or `mapStateToProps`, we never use `null` as the first argument. The reason we are passing null in here is that whenever you are passing through a function that is supposed to map our dispatch to the props of our containers, it always goes in as the second argument. By placing a `null` here, it indicates that `redux` is maintaining some state but this container doesn't care about it at all.
+
+After that, inside of `onForSubmit`, where user try to search for given city:
+
+```js
+this.props.fetchWeather(this.state.term);
+this.setState({ term: '' });
+```
+> Empty string will cause the component to re-render the input, a value of `this.state.term`
+
+Now, if we switch back to the browser, type random stuff into the search bar and enter.for instance New York and click submit, we will get the following error returned:
+
+```bash
+Uncaught TypeError: Cannot read property 'props' of null
+```
+>**Note:** This has been cause by the same issue as before, when we have a callback that we pass to a JSX element `onSubmit={this.onFormSubmit}` to the DOM, which reference to `this` in the function `onFormSubmit()` above, we need to bind the context in the `constructor` exactly same as the issue for `onInputChange`.
+
+In the constructor, we type:
+
+```js
+this.onFormSubmit = this.onFormSubmit.bind(this);
+```
+Now, switch back to the browser and type in 'New York' again, open the network, XHR in inspection, you will see response similar to below in the preview tag:
+
+```json
+{cod: "200", message: 0.0037, cnt: 40,…}
+  city: {id: 5128581, name: "New York", coord: {lat: 40.7143, lon: -74.006}, country: "US"}
+    coord: {lat: 40.7143, lon: -74.006}
+      lat: 40.7143
+      lon: -74.006
+    country: "US"
+    id: 5128581
+    name: "New York"
+  cnt: 40
+  cod: "200"
+  ...
+```
+
+
+
+
 
 
 
