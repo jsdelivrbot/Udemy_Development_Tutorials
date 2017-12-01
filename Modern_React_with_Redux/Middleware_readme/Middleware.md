@@ -321,9 +321,12 @@ const ROOT_URL = `http://samples.openweathermap.org/data/2.5/forecast?appid=${AP
 After that, by looking at the documentation:
 
 ---
+
 API call:
 api.openweathermap.org/data/2.5/forecast?q={city name},{country code}
+
 ---
+
 we could find that the url consist of `q={city name},{country code}`, thus we pass an argument of `city` into the `fetchWeather()` function. Then we adopt the pattern above into the function by defining `const url`
 
 ```js
@@ -383,9 +386,14 @@ function mapDispatchToProps(dispatch) {
 After we have got our `mapDispatchToProps`, we make the `export`:
 
 ```js
-export default connect(null, mapDispatchToProps)(SearchBar)
+export default connect(null, mapDispatchToProps)(SearchBar);
 ```
 and delete the `export default` above for the `SearchBar` component
+
+>**Note:** previously when we had components that we used `mapDispatchToProps` or `mapStateToProps`, we never use `null` as the first argument. The reason we are passing null in here is that whenever you are passing through a function that is supposed to map our dispatch to the props of our containers, it always goes in as the second argument. By placing a `null` here, it indicates that `redux` is maintaining some state but this container doesn't care about it at all.
+
+
+
 
 
 
