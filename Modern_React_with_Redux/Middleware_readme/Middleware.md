@@ -475,7 +475,7 @@ Now inside the action creator we have the console log of the request; in the red
 > id: 5391959
 > name: "San Francisco"
 > ```
->The payload we returned supposed to go stright over to the reducers as `actions`, but now instead of being apromise on the payload we have the response there. This is due that redux-promise is a middleware that have the ability to stop or manipulate actions before they hit any reducer. Redux-promise sees this incoming action and looks specifically the payload property. If the payload is a promise, redux-promise stops the action entirely. Once the request finishes it despatches a new action of the same type but with a payload of the resolved request.
+>The payload we returned supposed to go stright over to the reducers as `actions`, but now instead of being a promise on the `payload` we have the response there. This is due that redux-promise is a middleware that have the ability to stop or manipulate actions before they hit any reducer. Redux-promise sees this incoming action and looks specifically the payload property. If the payload is a promise, redux-promise stops the action entirely. Once the request finishes it despatches a new action of the same type but with a payload of the resolved request.
 
 ##### Flow of Promise
 
@@ -492,6 +492,26 @@ Now inside the action creator we have the console log of the request; in the red
 > Ajax request is asynchronous in nature, if doesn't happen instantly.
 
 Lastly, comment out the two console logs.
+
+### Avoiding State Mutations in Reducers
+
+First we need to figure out what part of the request we want to save. Flip back to the console and take
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
