@@ -428,11 +428,70 @@ Now, switch back to the browser and type in 'New York' again, open the network, 
   ...
 ```
 
+Then, we need to work on figuring out how we can work with data coming back. To get started on this, we need first create a new reducer for handling the fetch weather action.
 
+```bash
+touch src/reducers/reducer_weather.js
+```
 
+```js
+export default function(state = null, action) {
+    console.log('Action received', action);
+    return state;
+}
+```
+> The first argument is always our state for this particular piece of state that the user is responsible for, defaulted to `null` and the second argumnet is always our action.
 
+We need to make sure this reducer is actually being made use of by adding it to our combined reducer in `reducer/index.js`. Under first import:
 
+```js
+import WeatherReducer from './reducer_weather';
+```
+and this will be responsible for the weather part of our state:
 
+```js
+const rootReducer = combineReducers({
+    // state: (state = {}) => state
+    weather: WeatherReducer
+});
+```
+In `actions/index.js`, in `fetchWeather()` function, add:
+
+```js
+console.log('Request:', request);
+```
+> What happens in the application: a user enters the search term, they submit the form that calls the action creator `fetchWeather` and passes in the `city`. We then crap the url with the city and make an AJAX request with axios and axios returns a promise. The promise doesn't actually contain any of our data, we are returning the request on the `payload` key.
+
+Now inside the action creator we have the console log of the request; in the reducer we are console loggin the entire action which should have that same exact payload. 
+
+- Switch to the browser and refresh the page, we should get 3 console logs all containing: `Action received` with the type of redux after it. 
+- In the search bar, search for San Francisco, and click submit, you will find two console logs back, one is `Request: Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined}...` which is definitely coming from the action creator as it is where we set console log request, and then we have also got `Action received` which is coming the reducer.
+
+> **Note:** if we expand the second console log to check the actual response request here, we should see:
+> 
+> ```
+> coord: {lat: 37.7749, lon: -122.4195}
+> country: "US"
+> id: 5391959
+> name: "San Francisco"
+> ```
+>The payload we returned supposed to go stright over to the reducers as `actions`, but now instead of being apromise on the payload we have the response there. This is due that redux-promise is a middleware that have the ability to stop or manipulate actions before they hit any reducer. Redux-promise sees this incoming action and looks specifically the payload property. If the payload is a promise, redux-promise stops the action entirely. Once the request finishes it despatches a new action of the same type but with a payload of the resolved request.
+
+##### Flow of Promise
+
+<p align="center">
+    <img src="./redux-promise_middleware.png" align="center" width="400px" />
+</p>
+
+- We have got our action that returns from the action creator;
+- It enters the middleware (specifically redux-promised middleware);
+- Redux-Promise check wheter the action has a promise as a payload:
+	- If it doesn't, it is not part of Redux-Promise's job and it will just let it pass through and hit the reducers.
+	- If it does, stops the action entirely, and only after the promise resolves (the AJAX request finished), create a new action and then sent it through to the reducers.
+
+> Ajax request is asynchronous in nature, if doesn't happen instantly.
+
+Lastly, comment out the two console logs.
 
 
 
