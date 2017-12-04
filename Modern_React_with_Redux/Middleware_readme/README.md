@@ -535,6 +535,65 @@ return [ action.payload.data, ...state ];
 ```
 > What the three-dot does is taking all of the entries inside of it and insert it into this new outside array, right like flatten. This will end up with an array like `[ city, city, city]` instead of `[ city, [ city, [ city ] ] ]`
 
+### Building a List Container
+
+> **Note:** Each time we are adding something new component to be rendered, we always think of the question whether it's a component or a container. In this case, the purpose is to render the list of cities which is definitely going to get access to the redux state to get access to it thus prefers a container.
+
+Inside the `container` folder, we make a new file:
+
+```bash
+touch src/containers/weather_list.js
+```
+Do the usual boiler plate first:
+
+```js
+import React, { Component } from 'react';
+
+export default class WeatherList extends Component {
+    render() {
+        return (
+            <table className="table table-hover">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+        );
+    }
+}
+```
+> Our list shows all the different cities is going to be a html table, thus we put a table element of name `"table table-hover"` from Bootstrap.
+
+Then, make sure render this component inside of the app, flip to `../components/app.js`:
+
+```js
+import WeatherList from '../containers/weather_list';
+```
+and show that list directly underneath the existing search bar:
+
+```js
+return (
+    <div>
+        <SearchBar />
+        <WeatherList />
+    </div>
+);
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
