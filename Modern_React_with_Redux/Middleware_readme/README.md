@@ -634,22 +634,49 @@ function mapStateToProps(state) {
 > 
 > ```js
 > function mapStateToProps({ weather }) {
->    return { weather };
+>    return { weather }; // { weather } === { weather: weather }
 > }
 > ```
 
+Lastly, we need to connect the component with the function `mapStateToProp`. Thus, at the bottom:
 
+```js
+export default connect(mapStateToProps)(WeatherList);
+```
+and **Never Forget** we are not actually exporting the `default class` above any more, instead, we are exporting the connected version of weather list, thus delete the `export default `above.
 
+#### `weather_list.js` file so far:
 
+```js
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+class WeatherList extends Component {
+    render() {
+        return (
+            <table className="table table-hover">
+                <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Termpature</th>
+                        <th>Pressure</th>
+                        <th>Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
 
+                </tbody>
+            </table>
+        );
+    }
+}
 
+function mapStateToProps({ weather }) {
+    return { weather }; // { weather } === { weather: weather }
+}
 
-
-
-
-
-
+export default connect(mapStateToProps)(WeatherList);
+```
 
 
 
