@@ -596,7 +596,7 @@ We have four headings of City, Temperature, Pressure and Humidity, so we can add
 ```html
 <tr>
     <th>City</th>
-    <th>Termpature</th>
+    <th>Temperature</th>
     <th>Pressure</th>
     <th>Humidity</th>
 </tr>
@@ -658,7 +658,7 @@ class WeatherList extends Component {
                 <thead>
                     <tr>
                         <th>City</th>
-                        <th>Termpature</th>
+                        <th>Temperature</th>
                         <th>Pressure</th>
                         <th>Humidity</th>
                     </tr>
@@ -677,6 +677,79 @@ function mapStateToProps({ weather }) {
 
 export default connect(mapStateToProps)(WeatherList);
 ```
+
+### Mapping Props to a Render Helper
+
+<p align="center">
+    <img src="./table_data_1.png" align="center" width="500px" />
+</p>
+
+This is the Redux State that: 
+
+- Contains a single property `weather` of an array, and within that array is a bunch of simple objects.
+	- Each Object has a: 
+		- `city`
+		- the list of objects of all the forecasts snapshots
+		
+To build the rows of the table, we need to map over this property over the array, which will return one city per row.
+
+In the `<tbody>` in `weather_list.js`, we are going to make access to a javascript variable:
+
+```js
+<tbody>
+    {this.props.weather.map(this.renderWeather)}
+</tbody>
+```
+> `this.props.weather` is the array of objects we will map over. In each element in that array, call the function: `this.renderWeather`.
+
+Then we define the function `renderWeather()` above
+
+```js
+renderWeather(cityData) {
+    return (
+        <tr>
+            <td>{cityData.city.name}</td>
+        </tr>
+    );
+}
+```
+> The argument `cityData` will be identical to the object containing `city` & `list`.
+
+Switch to the browser, refresh and type in any existing city, you should get the name of the city shown below the city tag. If you type another city's name, it should append to the list right above the previous one returned.
+
+We also get an error returned stating:
+
+```bash
+Warning: Each child in an array or iterator should have a unique "key" prop. Check the render method of `WeatherList`.
+```
+We can fix by adding the key property to the tag:
+
+```js
+renderWeather(cityData) {
+    const name = cityData.city.name;
+
+    return (
+        <tr key={name}>
+            <td>{name}</td>
+        </tr>
+    );
+}
+```
+Switch back to the browser and type in the names of cities again, the error is not returning any more.
+
+### Adding Sparkline Charts
+
+```bash
+npm i --save react-sparklines@1.6.0
+```
+> **Warning:** As of August, the author of this library *accidentally* deployed a broken build, specifically version 1.7.0.  As such, we want to avoid that build, therefore we are not installing the latest version.
+
+<p align="center">
+     ...to be continued...
+</p>
+
+
+
 
 
 
