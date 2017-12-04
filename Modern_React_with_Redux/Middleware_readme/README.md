@@ -583,6 +583,61 @@ return (
     </div>
 );
 ```
+Switch to the browser and refresh, you should see the column header of 'City' being rendered below the search bar.
+
+Trace back to the diagram again:
+
+<p align="center">
+    <img src="./mid-ware_planning.png" align="center" width="650px" />
+</p>
+
+We have four headings of City, Temperature, Pressure and Humidity, so we can add these to the render list:
+
+```html
+<tr>
+    <th>City</th>
+    <th>Termpature</th>
+    <th>Pressure</th>
+    <th>Humidity</th>
+</tr>
+```
+Then we need to do the individual rows inside the table body `<tbody>` tag.
+
+We need to get our data into this component because it is a container, thus we have to import the connect function and define the function `mapStateToProps` and then pul the wether data into our container.
+
+- At the top:
+
+```js
+import { connect } from 'react-redux';
+```
+
+- At the bottom:
+
+```js
+function mapStateToProps(state) {
+    return { weather: state.weather };
+}
+```
+> **Note:** We specifically use the state of weather because we assigned our `WeatherReducer` to the weather key in `combineReducers` in `reducers/index.js` file.
+
+>  **Note:** Once again, we can use ES6 syntax to clean up. We have only one state and from that state pointing our only property: `weather`. We can get access to weather more easily, instead of `state.weather`, just do:
+> 
+> ```js
+> function mapStateToProps({ weather }) {...
+> ```
+> which defines a variable basically identical to:
+> 
+> ```js
+> const weather = state.weather
+> ```
+> Then since the key value pair is the same, we can simplify the whole expression to:
+> 
+> ```js
+> function mapStateToProps({ weather }) {
+>    return { weather };
+> }
+> ```
+
 
 
 
