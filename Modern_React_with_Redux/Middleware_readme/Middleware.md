@@ -495,25 +495,45 @@ Lastly, comment out the two console logs.
 
 ### Avoiding State Mutations in Reducers
 
-First we need to figure out what part of the request we want to save. Flip back to the console and take
+First we need to figure out what part of the request we want to save. Flip back to the console and take a look at the console, what we care about is the `data` object which contains the city and the list that contains all of the forcasts. Any time get a fetch weather action that comes in, the only piece of data that we really care about is `action.payload.data`.
 
+Next, we need to decide the initial state for our data structure of weather data should be. A user can query for many different cities by entering one city and then searching for another.
 
+<p align="center">
+    <img src="./mid-ware_planning.png" align="center" width="650px" />
+</p>
 
+We want to show multiple rows from multiple cities at a time. This implies that the data structure here will be a list. For storing all these data in an array, we need to change the initial state of `null` to an array.
 
+```
+export default function(state = [], action) {...
+```
+Next, set up a switch statement in here to handle only the `fetchWeather` action. Before that, we first import the `FETCH_WEATHER` we previously defined in `action/index.js`: 
 
+```js
+import { FETCH_WEATHER } from "../actions/index";
+```
+then we carry on with the switch statement:
 
+```js
+switch (action.type) {
+    case FETCH_WEATHER:
+        return [ action.payload.data ];
+}
+```
+In this case we are just returning a certain state every time instead of collecting it. In order to collect, we modify the line to:
 
+```js
+return state.concat([action.payload.data]);
+```
+> **Note:** Remember that for React-Redux, we are not mutating the state but returning a new instance of state each time, Instead of using `state.push([action.payload.data]);`, we use `state.concat([action.payload.data]);` to achieve the goal as `concat()` will include all old and new data without changing the existing array, but creating a new array. This is a very common trap for React-Redux to accidentally mutate the state over time.
 
+To utilise the convenience of ES6 syntax, instead of using `concat()`, we can write:
 
-
-
-
-
-
-
-
-
-
+```js
+return [ action.payload.data, ...state ];
+```
+> What the three-dot does is taking all of the entries inside of it and insert it into this new outside array, right like flatten. This will end up with an array like `[ city, city, city]` instead of `[ city, [ city, [ city ] ] ]`
 
 
 
